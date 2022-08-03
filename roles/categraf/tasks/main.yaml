@@ -1,0 +1,65 @@
+- name: clean old categraf containers
+  shell: "{{ DOCKER_COMPOSE_EXECUTEABLE }} -f {{ OPT_PATH }}/docker-compose.yaml rm -fsva;rm -rf {{ OPT_PATH }}/docker-compose.yaml"
+  ignore_errors: yes
+
+- name: clean old categraf configs
+  shell: rm -rf {{ ETC_PATH }}
+  ignore_errors: yes
+
+- name: create directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+  with_items:
+    - "{{ ETC_PATH }}"
+    - "{{ OPT_PATH }}"
+
+- name: create plugin directories
+  file:
+    path: "{{ ETC_PATH }}/input.{{ item | basename | replace('.toml.j2', '') | replace('.toml', '') }}"
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+  with_fileglob: "templates/conf/*.toml.*"
+
+- name: categraf docker compose file
+  template:
+    src: "{{item}}.j2"
+    dest: "{{ OPT_PATH }}/{{item}}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - docker-compose.yaml
+
+- name: categraf config file
+  template:
+    src: "{{item}}.j2"
+    dest: "{{ ETC_PATH }}/{{item}}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - config.toml
+    - logs.toml
+
+- name: categraf plugin conf file
+  copy:
+    src: "{{ item }}"
+    dest: "{{ ETC_PATH }}/input.{{ item | basename | replace('.toml', '') }}/{{ item | basename }}"
+  with_fileglob: "templates/conf/*.toml"
+
+- name: categraf plugin conf j2 file
+  template:
+    src: "{{ item }}"
+    dest: "{{ ETC_PATH }}/input.{{ item | basename | replace('.toml.j2', '') }}/{{ item | basename | replace('.j2', '')}}"
+  with_fileglob: "templates/conf/*.toml.j2"
+
+- name: run categraf service
+  shell: "{{ DOCKER_COMPOSE_EXECUTEABLE }} -f {{ OPT_PATH }}/docker-compose.yaml up -d"
+  async: 300
+  poll: 50

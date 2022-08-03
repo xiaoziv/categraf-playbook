@@ -1,0 +1,10 @@
+---
+net_response:
+  enable: false
+  key_ref: "host" # 使用host作为key，可以指定为其他的主机相关变量
+  conf:
+    hostA:
+      - proc: ssh
+        port: 20
+      - proc: springboot
+        port: 8080

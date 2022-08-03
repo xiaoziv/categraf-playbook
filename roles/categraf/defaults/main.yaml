@@ -1,0 +1,15 @@
+
+IMAGE: flashcatcloud/categraf
+TAG: v0.2.7
+
+# compose file path
+OPT_PATH: /home/docker/categraf
+
+# categraf config file path
+ETC_PATH: /home/docker/categraf/conf
+
+# docker-compose command path
+DOCKER_COMPOSE_EXECUTEABLE: /usr/local/bin/docker-compose
+
+# nserver write url
+NSERVER_WRITE_URL: http://172.0.0.1:190000/prometheus/v1/write

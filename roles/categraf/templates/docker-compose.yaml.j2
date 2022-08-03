@@ -1,0 +1,19 @@
+---
+version: "3"
+services:
+  categraf:
+    image: {{ IMAGE }}:{{ TAG }}
+    container_name: categraf
+    network_mode: host
+    restart: always
+    environment: 
+      HOST_PROC: /hostfs/proc
+      HOST_SYS: /hostfs/sys
+      HOST_MOUNT_PREFIX: /hostfs
+      TZ: Asia/Shanghai
+    volumes:
+      - /:/hostfs:ro
+      - {{ETC_PATH}}:/etc/categraf/conf:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    # command: 
+  

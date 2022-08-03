@@ -1,0 +1,15 @@
+{% if net_response and 'enable' in net_response and net_response.enable and 'conf' in net_response %}
+{% if 'key_ref' in net_response %}
+{% set k = vars[net_response.key_ref] %}
+{% else %}
+{% set k = vars['inventory_hostname'] %}
+{% endif %}
+{% if k in net_response.conf %}
+{% for item in net_response.conf[k] %}
+[[instances]]
+labels = {proc = "{{ item.proc }}"}
+targets = [":{{ item.port }}"]
+
+{% endfor %}
+{% endif %}
+{% endif %}

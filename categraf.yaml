@@ -1,0 +1,9 @@
+- name: categraf deploy
+  hosts: categraf-hosts
+  gather_facts: false
+  vars_files:
+    - "{{ playbook_dir }}/categraf/vars/plugins.yaml"
+  become: yes
+  become_method: sudo
+  roles:
+    - { role: categraf }
