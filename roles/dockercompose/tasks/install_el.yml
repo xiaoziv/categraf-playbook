@@ -1,0 +1,9 @@
+---
+# tasks file for docker-compose | EL Family
+
+- name: EL Family | Downloading and placing {{ dockercompose_app }} {{ dockercompose_version }} to {{ dockercompose_bin_path }}
+  become: yes
+  get_url:
+    url: "{{ dockercompose_dl_url }}"
+    dest: "{{ dockercompose_bin_path }}/{{ dockercompose_app }}"
+    mode: "{{ dockercompose_file_mode }}"

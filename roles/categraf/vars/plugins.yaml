@@ -5,6 +5,6 @@ net_response:
   conf:
     hostA:
       - proc: ssh
-        port: 20
+        port: 22
       - proc: springboot
         port: 8080

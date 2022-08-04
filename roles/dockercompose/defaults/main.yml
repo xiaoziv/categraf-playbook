@@ -1,0 +1,17 @@
+---
+# defaults file for dockercompose
+
+dockercompose_app: docker-compose
+dockercompose_version: 1.29.2
+dockercompose_osarch: "{{ ansible_system }}-x86_64"
+dockercompose_dl_url: "https://get.daocloud.io/docker/compose/releases/download/{{ dockercompose_version }}/{{ dockercompose_app }}-{{ dockercompose_osarch }}"
+dockercompose_bin_path: /usr/local/bin
+dockercompose_file_mode: "0755"
+
+
+#dockercompose_app: docker-compose
+#dockercompose_version: v2.6.0
+#dockercompose_osarch: "{{ ansible_system }}-x86_64"
+#dockercompose_dl_url: "https://github.com/docker/compose/releases/download/{{ dockercompose_version }}/docker-compose-linux-x86_64"
+#dockercompose_bin_path: /usr/local/bin
+#dockercompose_file_mode: "0755"

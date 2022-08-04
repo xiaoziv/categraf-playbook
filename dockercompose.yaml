@@ -1,0 +1,8 @@
+---
+- hosts: categraf-hosts
+  name: install docker compose
+  gather_facts: true
+  become: yes
+  become_method: sudo
+  roles:
+    - dockercompose
