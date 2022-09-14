@@ -24,7 +24,7 @@
     mode: 0755
     owner: root
     group: root
-  with_fileglob: "templates/conf/*.toml.*"
+  with_fileglob: "templates/conf/*toml*"
 
 - name: categraf docker compose file
   template:

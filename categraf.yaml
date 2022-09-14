@@ -2,7 +2,8 @@
   hosts: categraf-hosts
   gather_facts: false
   vars_files:
-    - "{{ playbook_dir }}/categraf/vars/plugins.yaml"
+    # - "{{ playbook_dir }}/categraf/vars/plugins.yaml" # 如果设置了playbook_dir
+    - "./roles/categraf/vars/plugins.yaml" # 需要在项目根目录下运行
   become: yes
   become_method: sudo
   roles:
